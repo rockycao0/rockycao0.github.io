@@ -2,12 +2,13 @@
   "name": "rockycao0-blog",
   "version": "1.0.0",
   "description": "rockycao0's personal blog",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "vitepress": "^1.0.0-rc.44"
+    "vitepress": "^1.2.3"
   }
 }
