@@ -33,13 +33,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: cd blog && npm ci
+        run: npm ci
 
       - name: Build
-        run: cd blog && npm run build
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./blog/dist
+          publish_dir: ./dist
