@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: rockycao0's Blog
-  text: 算法工程师的技术沉淀
+  name: Rocky's Blog
+  text: 养虾人的技术沉淀
   tagline: 记录学习、思考与成长
   actions:
     - theme: brand
