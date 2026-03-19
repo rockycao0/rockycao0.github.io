@@ -57,5 +57,9 @@ export default defineConfig({
   },
 
   // 配置永久链接，我们按日期组织文章
-  cleanUrls: true
+  cleanUrls: true,
+
+  // 构建输出目录，相对于 docs/.vitepress
+  // ../dist → 输出到仓库根目录的 dist 文件夹
+  outDir: '../dist'
 })
