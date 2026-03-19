@@ -1,0 +1,39 @@
+# 忽略所有非博客文件
+.*
+!.github/
+!.gitignore
+!docs/
+!package.json
+!package-lock.json
+
+# 保留posts
+!docs/posts/
+
+# 忽略node_modules和构建
+node_modules/
+dist/
+*.log
+
+# 忽略IDE
+.vscode/
+.idea/
+.DS_Store
+
+# 忽略本地其他文件
+AGENTS.md
+BOOTSTRAP.md
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md
+*.md
+!使用说明.md
+memory/
+reminder.py
+config.json
+generate_ppt.py
+机器学习*.md
+机器学习*.pptx
+相关文件打包.zip
+*.zip
