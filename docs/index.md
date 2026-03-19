@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读 →
-      link: /archive
+      link: /archive/
     - theme: alt
       text: 查看 GitHub
       link: https://github.com/rockycao0

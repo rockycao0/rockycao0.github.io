@@ -2,50 +2,40 @@
 
 按日期倒序排列，最新文章在最前面。
 
-<!-- @vitepress-plugin-script-setup -->
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vitepress'
 
-const route = useRoute()
-const posts = ref([])
 const groupedPosts = ref({})
 
 function extractDateFromPath(path) {
-  // 从文件名提取日期，格式我们约定为 YYYY-MM-DD-title.md
+  // path example: ./posts/2026-03-18-hello-world.md
   const fileName = path.split('/').pop()
   const match = fileName.match(/^(\d{4}-\d{2}-\d{2})-(.*)\.md$/)
   if (match) {
-    let postPath = path.replace(/^\.\/|\.md$/g, '') // remove ./ and .md
-    // 保证路径以 / 结尾，因为 cleanUrls 下 index.html 需要斜杠
-    if (!postPath.endsWith('/')) {
-      postPath += '/'
-    }
     return {
       date: match[1],
-      title: match[2].replace(/-/g, ' '),
-      path: postPath
+      title: match[2].replace(/-/g, ' ')
     }
   }
   return null
 }
 
 async function loadPosts() {
-  // 使用 Vite 的 glob 导入功能获取所有文章
+  // Vite glob import
   const modules = import.meta.glob('./posts/*.md')
   
   const postList = []
   for (const path in modules) {
     const info = extractDateFromPath(path)
     if (info) {
-      // 获取文章元数据
       const module = await modules[path]()
       const frontmatter = module.frontmatter || {}
-      let postPath = '/' + path.replace(/^\.\/|\.md$/g, '')
-      // 保证路径以 / 结尾，cleanUrls 模式下需要这样才能正确访问 index.html
-      if (!postPath.endsWith('/')) {
-        postPath += '/'
-      }
+      
+      // 正确生成路径：
+      // path = ./posts/xxx.md → /posts/xxx/ 
+      let postPath = path.replace(/^\.\/|\.md$/g, '') // → posts/xxx
+      postPath = '/' + postPath + '/' // → /posts/xxx/ 保证末尾斜杠
+      
       postList.push({
         date: info.date,
         title: frontmatter.title || info.title,
@@ -55,7 +45,7 @@ async function loadPosts() {
     }
   }
   
-  // 按日期倒序排列
+  // 按日期倒序
   postList.sort((a, b) => b.date.localeCompare(a.date))
   
   // 按年份分组
@@ -68,7 +58,6 @@ async function loadPosts() {
     grouped[year].push(post)
   })
   
-  posts.value = postList
   groupedPosts.value = grouped
 }
 
@@ -82,7 +71,7 @@ onMounted(() => {
   <ul class="post-list">
     <li v-for="post in yearPosts" :key="post.path" class="post-item">
       <span class="post-date">{{ post.date }}</span>
-      <a :href="post.path + '/'" class="post-title">{{ post.title }}</a>
+      <a :href="post.path" class="post-title">{{ post.title }}</a>
       <p v-if="post.excerpt" class="post-excerpt">{{ post.excerpt }}</p>
     </li>
   </ul>

@@ -147,7 +147,7 @@ from sklearn.model_selection import KFold
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 for train_idx, val_idx in kf.split(X):
     X_train, X_val = X[train_idx], X[val_idx]
-    y_train, y_val = y[train_idx], y_val
+    y_train, y_val = y[train_idx], y[val_idx]
     # 模型训练与评估
 ``` | 所有任务 | 提升结果稳定性，减少过拟合风险 |
 
@@ -367,7 +367,7 @@ class DynamicModelSelector:
         # 根据内存、GPU、延迟等约束筛选模型
         feasible = []
         for model in candidates:
-            if self._check_resource_requirements(model, compute_constraints):
+            if self._check_resource_requirements(model, compute_constants):
                 feasible.append(model)
         return feasible
 ```
