@@ -5,6 +5,7 @@ export default defineConfig({
   title: "rockycao0's Blog",
   description: "算法工程师的个人博客",
   lang: 'zh-CN',
+  base: '/',
   
   // 站点URL，用于生成 sitemap 和 SEO
   head: [
