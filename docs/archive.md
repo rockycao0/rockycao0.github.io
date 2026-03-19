@@ -34,7 +34,8 @@ async function loadPosts() {
       // 正确生成路径：
       // path = ./posts/xxx.md → /posts/xxx/ 
       let postPath = path.replace(/^\.\/|\.md$/g, '') // → posts/xxx
-      postPath = '/' + postPath + '/' // → /posts/xxx/ 保证末尾斜杠
+      postPath = '/' + postPath
+      // GitHub Pages cleanUrls 模式下，不需要末尾斜杠，不带斜杠反而正确
       
       postList.push({
         date: info.date,
