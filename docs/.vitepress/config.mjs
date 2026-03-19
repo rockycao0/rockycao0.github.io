@@ -57,8 +57,5 @@ export default defineConfig({
   },
 
   // 配置永久链接，我们按日期组织文章
-  cleanUrls: true,
-
-  // 构建输出目录
-  outDir: '../dist'
+  cleanUrls: true
 })
