@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # 推送到main分支自动部署
+      - blog  # 推送到blog分支也自动部署
   workflow_dispatch:
 
 # 权限配置
