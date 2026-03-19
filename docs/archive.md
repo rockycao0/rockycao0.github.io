@@ -16,10 +16,15 @@ function extractDateFromPath(path) {
   const fileName = path.split('/').pop()
   const match = fileName.match(/^(\d{4}-\d{2}-\d{2})-(.*)\.md$/)
   if (match) {
+    let postPath = path.replace(/^\.\/|\.md$/g, '') // remove ./ and .md
+    // 保证路径以 / 结尾，因为 cleanUrls 下 index.html 需要斜杠
+    if (!postPath.endsWith('/')) {
+      postPath += '/'
+    }
     return {
       date: match[1],
       title: match[2].replace(/-/g, ' '),
-      path: path.replace(/^\/docs|\.md$/g, '')
+      path: postPath
     }
   }
   return null
@@ -36,11 +41,16 @@ async function loadPosts() {
       // 获取文章元数据
       const module = await modules[path]()
       const frontmatter = module.frontmatter || {}
+      let postPath = '/' + path.replace(/^\.\/|\.md$/g, '')
+      // 保证路径以 / 结尾，cleanUrls 模式下需要这样才能正确访问 index.html
+      if (!postPath.endsWith('/')) {
+        postPath += '/'
+      }
       postList.push({
         date: info.date,
         title: frontmatter.title || info.title,
         excerpt: frontmatter.description || '',
-        path: '/' + path.replace(/^\.\/|md$/g, '')
+        path: postPath
       })
     }
   }
