@@ -72,7 +72,7 @@ onMounted(() => {
   <ul class="post-list">
     <li v-for="post in yearPosts" :key="post.path" class="post-item">
       <span class="post-date">{{ post.date }}</span>
-      <a :href="post.path" class="post-title">{{ post.title }}</a>
+      <a :href="post.path + '/'" class="post-title">{{ post.title }}</a>
       <p v-if="post.excerpt" class="post-excerpt">{{ post.excerpt }}</p>
     </li>
   </ul>
